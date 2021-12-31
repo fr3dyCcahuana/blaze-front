@@ -1,0 +1,45 @@
+<div class="row m-3 d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" routerLink="/products/add"><i class="fas fa-plus-circle"></i> New Product</button>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4">
+          <h5>Products</h5>
+      </div>
+  </div>
+  </div>
+  <div class="card-body">
+    <table id="excel-table" class="table">
+      <thead>
+          <tr>
+              <th scope="col">N°</th>
+              <th scope="showColumn">Name</th>
+              <th class="showColumn" scope="col">Category</th>
+              <th class="showColumn" scope="col">Price</th>
+              <th scope="showColumn" scope="col">Status</th>
+              <th class="showColumn" scope="col">Actions</th>
+          </tr>
+      </thead>
+      <tbody *ngIf="products.length > 0">
+          <tr *ngFor="let d of products | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td class="showColumn">{{ d.id }}</td>
+              <td class="showColumn">{{ d.name }}</td>
+              <td class="showColumn">{{ d.categorie }}</td>
+              <td class="showColumn">{{ d.unitPrice }}</td>
+              <td class="showColumn" *ngIf="d.status == true">Active</td>
+              <td class="showColumn" *ngIf="d.status == false">Inactive</td>
+              <button type="button" class="btn btn-warning" (click)="editProduct(d.id)"><i class="fas fa-edit"></i></button>
+          </tr>
+      </tbody>
+    </table>
+    <div *ngIf="products.length == 0" style="margin: 50px;">
+      <p class="noAvailable"> products not available </p>
+    </div>
+    <div *ngIf="products.length > 0">
+      <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+  </div>
+</div>

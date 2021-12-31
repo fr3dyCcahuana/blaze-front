@@ -1,0 +1,37 @@
+<div class="container pt-2">
+    <div class="row justify-content-sm-center pt-2">
+        <div class="col-sm-6 shadow round pb-3">
+          <h1 class="text-center pt-3 text-secondary">Create Product</h1>
+            <form [formGroup]="exform">
+                <div class="form-group">
+                  <label class="col-form-label">Name:</label>
+                  <input formControlName="name" type="text" class="form-control">
+                  <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small> 
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Categorie:</label>
+                  <input formControlName="categorie" type="text" class="form-control" >
+                  <small *ngIf="categorie.invalid && categorie.touched" class="text-danger">Categorie is Required</small>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Price:</label>
+                  <input formControlName="unitPrice" type="text" class="form-control" >
+                  <small *ngIf="unitPrice.invalid && unitPrice.touched" class="text-danger">Price is Required</small>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Status:</label>
+                  <select class="form-select form-control" formControlName="status" >
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                  </select>
+                  <small *ngIf="status.invalid && status.touched" class="text-danger"> select an option</small> 
+                
+                </div>
+                
+                <button (click)="clicksub()" [disabled]="exform.invalid" type="button" class="btn btn-primary">Send message</button>
+              </form>
+        </div>
+    </div>
+  </div>
+
+  

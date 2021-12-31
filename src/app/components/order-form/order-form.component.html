@@ -1,0 +1,110 @@
+
+<div class="container"> 
+    <div class="row d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary m-2" (click)="backOrder()" >Back</button>
+    </div>
+    <form #form="ngForm" >
+      <div class="form-group">
+          <h2 class="m-b-2">Order N°</h2>
+          <div class="row p-2">
+            <div class="col-2">
+                <label for="form" class="col-form-label">Customer</label>
+            </div>
+            <div class="col-3">
+                <label for="form" class="col-form-label">{{customer}}</label>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-2">
+                <label for="form" class="col-form-label">Status</label>
+            </div>
+            <div class="col-3">
+              <label for="form" class="col-form-label">{{state}}</label>
+          </div>
+            
+          </div>
+          <div class="row p-2" *ngIf="date !=''">
+            <div class="col-2">
+                <label for="form" class="col-form-label">Date</label>
+            </div>
+            <div class="col-3">
+              <label for="form" class="col-form-label">{{date}}</label>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Item Orders</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+              <table id="excel-table" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="showColumn">Name</th>
+                        <th class="showColumn" scope="col">Quantity</th>
+                        <th class="showColumn" scope="col">Unit Price</th>
+                        <th scope="showColumn" scope="col">Cost</th>
+                        <th class="showColumn" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="itemOrders.length > 0">
+                    <tr *ngFor="let d of itemOrders">
+                        <td class="showColumn">{{ d.id }}</td>
+                        <td class="showColumn">{{ d.product.name }}</td>
+                        <td class="showColumn">{{ d.quantity }}</td>
+                        <td class="showColumn">{{ d.product.unitPrice }}</td>
+                        <td class="showColumn">{{ (d.product.unitPrice * d.quantity)}}</td>
+                        <td class="showColumn">
+                            <button type="button" class="btn btn-warning m-e-2" (click)="editProduct(d.id)"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-warning m-2" (click)="deleteProduct(d.id)"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+              <div *ngIf="itemOrders.length == 0" style="margin: 50px;">
+                <p class="noAvailable"> Orden not register </p>
+              </div>
+            </div>
+          </div>
+          <div class="row p-3 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" (click)="viewForm()"><i class="fas fa-plus-circle"></i> Add Item</button>
+          </div>
+          <div class="row d-flex justify-content-end" *ngIf="view == 1">
+                <form #form="ngForm">
+                    <div class="row p-2">
+                        <div class="col-3">
+                            <label for="form" class="col-form-label">Product</label>
+                        </div>
+                        <div class="col-6">
+                            <select  name="cars1" class="form-select form-control" (change)="selectProduct()" [(ngModel)]="productSelect" required >
+                                <option *ngFor="let pl of productsList" 
+                                [ngValue]="pl"
+                                >{{pl.name}}</option>
+                            </select>
+                        </div>
+                      </div>
+                    <div class="row p-2">
+                        <div class="col-3">
+                            <label for="form" class="col-form-label">quantity</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="cars3" type="number"  [(ngModel)]="quantity" required>
+                        </div>
+                      </div>
+                      <div class="row p-3 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" (click)="addItemOrden()"><i class="fas fa-cart-plus"></i></button>
+                      </div>
+                </form>
+          </div>
+      </div>
+      <div class="row d-flex justify-content-end">
+        <button type="button" class="btn btn-success m-2" (click)="completeOrder()" >Complete Order</button>
+        <button type="button" class="btn btn-danger m-2" (click)="rejectOrder()" >Reject Order</button>
+      </div>
+    </form>
+</div>
